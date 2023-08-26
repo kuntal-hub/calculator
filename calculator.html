@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MY calculator</title>
+    <style>
+        nav {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: center;
+            text-decoration: none;
+            margin: 15px 0 10px 0;
+        }
+
+        nav>a {
+            border: 2px solid rgb(107, 106, 109);
+            color: rgb(107, 106, 109);
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bolder;
+            box-sizing: border-box;
+            width: 30px;
+            height: 26px;
+            margin: 10px 20px;
+            font-size: 20px;
+            text-align: center;
+            transition: all 0.5s;
+        }
+
+        nav>a:hover {
+            color: rgb(255, 255, 255);
+            background-color: rgb(255, 157, 0);
+
+        }
+
+        .active {
+            color: rgb(255, 255, 255);
+            background-color: orange;
+            border: none;
+        }
+
+        #display {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+
+        #eqn {
+
+            text-align: left;
+            border: none;
+            outline: none;
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 35px;
+            overflow-wrap: break-word;
+            display: block;
+        }
+
+        #result {
+
+            text-align: right;
+            border: none;
+            outline: none;
+            width: 90%;
+            font-size: 25px;
+            opacity: 0.5;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+        }
+
+        #hidden {
+            display: none;
+            visibility: hidden;
+        }
+
+        .keys {
+            position: fixed;
+            bottom: 30px;
+            right: 0px;
+
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+
+        .main {
+            margin: auto;
+        }
+
+        .keys {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            justify-content: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .row>button {
+
+            width: 17%;
+            height: 60px;
+            margin: 4px;
+            font-size: 20px;
+            border-radius: 10px;
+            transition: all 0.5s;
+        }
+
+        .row>button:hover {
+            box-shadow: 3px 3px 3px rgb(157, 149, 149);
+            background-color: aqua;
+        }
+
+        @media screen and (min-height: 750px) {
+            #eqn {
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+
+            #result {
+                margin-top: 50px;
+                margin-bottom: 100px;
+            }
+        
+        }
+
+        @media screen and (min-height: 1080px) {
+            #eqn {
+                margin-top: 90px;
+                margin-bottom: 100px;
+            }
+
+            #result {
+                margin-top: 70px;
+                margin-bottom: 100px;
+            }
+        }
+
+        @media screen and (min-height: 900px) {
+            #eqn {
+                margin-top: 120px;
+                margin-bottom: 100px;
+            }
+
+            #result {
+                margin-top: 10px;
+                margin-bottom: 100px;
+            }
+        }
+        @media screen and (min-height: 800px) {
+            #eqn {
+                margin-top: 40px;
+                margin-bottom: 80px;
+            }
+
+            #result {
+                margin-top: 10px;
+                margin-bottom: 100px;
+            }
+        }
+        @media screen and (min-height: 860px) {
+            #eqn {
+                margin-top: 70px;
+                margin-bottom: 100px;
+            }
+
+            #result {
+                margin-top: 10px;
+                margin-bottom: 100px;
+            }
+        }
+        @media screen and (min-height: 1000px) {
+            #eqn {
+                margin-top: 150px;
+                margin-bottom: 130px;
+            }
+
+            #result {
+                margin-top: 100px;
+                margin-bottom: 100px;
+            }
+        
+        }
+    
+    </style>
+
+</head>
+
+<body>
+    <nav>
+        <a href="#" class="active">&#61;</a>
+        <a href="#">&equals;&gt;</a>
+        <a href="#">&#8377;</a>
+    </nav>
+    <div class="main">
+        <div id="display">
+            <input type="text" name="hidden" id="hidden" readonly>
+            <input type="text" name="eqn" id="eqn" placeholder="0" readonly><br>
+            <input type="text" name="result" id="result" placeholder="= 0" readonly>
+        </div>
+        <div class="keys">
+            <div class="row">
+                <button type="button" id="moduler" onclick="mod()"
+                    style="background-color: rgb(255, 0, 136);">&#37;</button>
+                <button>Deg</button>
+                <button type="button" id="fact" onclick="fact()">X!</button>
+                <button type="button" id="bs" onclick="back()"
+                    style="color: orange;font-weight: 500; font-size: 30px;">C</button>
+                <button type="button" id="ac" onclick="allclear()" style="background-color: aqua;">AC</button>
+            </div>
+            <div class="row">
+                <button type="button" id="sqroot" onclick="root()">&#8730;</button>
+                <button type="button" id="ob" onclick="opbrackt()">(</button>
+                <button type="button" id="cb" onclick="clbrackt()">)</button>
+                <button type="button" id="pi" onclick="pii()">&Pi;</button>
+                <button type="button" id="expo" onclick="exp()"
+                    style="color: orange;font-weight: 400; font-size: 30px;">X<sup>y</sup></button>
+            </div>
+            <div class="row">
+                <button onclick="sin()">sin</button>
+                <button onclick="numb(this)">7</button>
+                <button onclick="numb(this)">8</button>
+                <button onclick="numb(this)">9</button>
+                <button onclick="mul()" style="color: orange; font-weight: 1000; font-size: 30px;">&#215;</button>
+            </div>
+            <div class="row">
+                <button onclick="cos()">cos</button>
+                <button onclick="numb(this)">4</button>
+                <button onclick="numb(this)">5</button>
+                <button onclick="numb(this)">6</button>
+                <button onclick="div()" style="color: orange;font-weight: 1000; font-size: 30px;">&#247;</button>
+            </div>
+            <div class="row">
+                <button onclick="tan()">tan</button>
+                <button onclick="numb(this)">1</button>
+                <button onclick="numb(this)">2</button>
+                <button onclick="numb(this)">3</button>
+                <button onclick="add()" style="color: orange;font-weight: 1000; font-size: 30px;">&#43;</button>
+            </div>
+            <div class="row">
+                <button onclick="log()">log<sub>10</sub></button>
+                <button onclick="ans()">Ans</button>
+                <button onclick="numb(this)">0</button>
+                <button onclick="numb(this)">.</button>
+                <button onclick="sub()" style="color: orange;font-weight: 1000; font-size: 30px;">&#8722;</button>
+            </div>
+            <div class="row">
+                <button onclick="sqr()">x<sup>2</sup></button>
+                <button onclick="log2()">log<sub>2</sub></button>
+                <button type="button" id="e" onclick="eeee()">e</button>
+                <button id="eqal" style="width: 36%; background-color: orange; font-size: 30px; color: white;"
+                    onclick="eqal()">=</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        //let displayeqn =document.getElementById("eqn").value;
+        var screen = document.querySelector('#eqn');
+        var hidden = document.querySelector('#hidden');
+        function evalute(params) {
+            try {
+                document.getElementById("result").value = `= ${eval(params)}`;
+                result = eval(params)
+                //console.log(result);
+            } catch (error) {
+                //document.getElementById("result").value = "Syntex Error";
+            }
+        }
+        let result = 0;
+        function numb(id) {
+
+            document.getElementById("eqn").value += id.innerHTML;
+            document.getElementById("hidden").value += id.innerHTML;
+            let y = document.getElementById("eqn").value;
+            try {
+                document.getElementById("result").value = `= ${eval(y)}`;
+                result = eval(y)
+                //console.log(result);
+            } catch (error) {
+                //console.log(error);
+            }
+        }
+
+        function opbrackt(params) {
+            if (hidden.value == "") {
+                screen.value += "(";
+            } else {
+                screen.value += "*(";
+
+            }
+        }
+        function clbrackt(params) {
+            screen.value += ")"
+            evalute(screen.value);
+        }
+
+        function add() {
+            screen.value += "+"
+            hidden.value = "";
+        }
+        function sub() {
+            screen.value += "-"
+            hidden.value = "";
+        }
+        function mul() {
+            screen.value += "*"
+            hidden.value = "";
+        }
+        function div() {
+            screen.value += "/"
+            hidden.value = "";
+        }
+        function exp() {
+            screen.value += "**"
+            hidden.value = "";
+        }
+        function mod() {
+            screen.value += "%"
+            hidden.value = "";
+        }
+
+        function fact() {
+            let h = hidden.value
+            screen.value = screen.value.substr(0, screen.value.length - h.length);
+
+            let a = 1;
+            for (let i = 1; i <= h; i++) {
+                a *= i;
+            }
+            screen.value += a;
+
+            try {
+                document.getElementById("result").value = `= ${eval(screen.value)}`;
+                result = eval(screen.value)
+                //console.log(result);
+            } catch (error) {
+                //console.log(error);
+            }
+        }
+
+        function pii() {
+            if (hidden.value == "") {
+                screen.value += "3.14159265";
+                evalute(screen.value);
+            } else {
+                screen.value += "*3.14159265";
+                evalute(screen.value);
+
+            }
+        }
+
+        function eeee() {
+            screen.value += "2.71828183"
+            try {
+                document.getElementById("result").value = `= ${eval(screen.value)}`;
+                result = eval(screen.value)
+                //console.log(result);
+            } catch (error) {
+                //console.log(error);
+            }
+        }
+
+        function back() {
+            screen.value = screen.value.substr(0, screen.value.length - 1);
+            hidden.value = hidden.value.substr(0, hidden.value.length - 1);
+            try {
+                let x = eval(screen.value);
+                if (x == undefined) {
+                    document.getElementById("result").value = "= 0";
+
+                } else {
+                    document.getElementById("result").value = `= ${x}`;
+                    result = eval(screen.value)
+                    //console.log(result);
+                }
+            } catch (error) {
+                //console.log(error);
+            }
+        }
+        function allclear() {
+            document.getElementById("eqn").value = "";
+            document.getElementById("hidden").value = "";
+            document.getElementById("result").value = "";
+            document.getElementById("result").style.fontSize = "25px";
+            document.getElementById("result").style.opacity = "0.5";
+            screen.style.fontSize = '30px'
+            screen.style.opacity = '1'
+            //result = 0;
+        }
+        function sin() {
+            hidden.value = "";
+            screen.value += "Math.sin(Math.PI/180*"
+        }
+        function cos() {
+            hidden.value = "";
+            screen.value += "Math.cos(Math.PI/180*"
+        }
+        function tan() {
+            hidden.value = "";
+            screen.value += "Math.tan(Math.PI/180*"
+        }
+        function log() {
+            hidden.value = "";
+            screen.value += "Math.log10("
+        }
+        function log2() {
+            hidden.value = "";
+            screen.value += "Math.log2("
+        }
+        function root() {
+            hidden.value = "";
+            screen.value += "Math.sqrt("
+        }
+        function ans() {
+            screen.value = result;
+            document.getElementById("result").value = result;
+        }
+        function sqr() {
+            let x = hidden.value;
+            screen.value += `*${x}`
+            evalute(screen.value);
+        }
+        function eqal() {
+            evalute(screen.value);
+            result = eval(screen.value);
+            document.getElementById("result").style.fontSize = "40px";
+            document.getElementById("result").style.opacity = "1";
+            screen.style.fontSize = '25px'
+            screen.style.opacity = '0.5'
+
+
+        }
+    </script>
+</body>
+
+</html>
